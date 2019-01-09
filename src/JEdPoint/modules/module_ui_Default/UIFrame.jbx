@@ -1,0 +1,24 @@
+[PropertyInfo]
+alive,boolean,false,false, , ,true,<default>
+borderLayout1,BorderLayout,false,false, , ,false,<default>
+borderLayout2,BorderLayout,false,false, , ,false,<default>
+borderLayout3,BorderLayout,false,false, , ,false,<default>
+borderLayout4,BorderLayout,false,false, , ,false,<default>
+isAlive,boolean,false,false, , ,false,<default>
+jListAreaBrowser,JList,false,false, , ,false,<default>
+jListMessageBrowser,JList,false,false, , ,false,<default>
+jMenuBarMain,JMenuBar,false,false, , ,false,<default>
+jMenuFile,JMenu,false,false, , ,false,<default>
+jMenuFileExit,JMenuItem,false,false, , ,false,<default>
+jMenuHelp,JMenu,false,false, , ,false,<default>
+jMenuHelpAbout,JMenuItem,false,false, , ,false,<default>
+jPanelAreaBrowser,JPanel,false,false, , ,false,<default>
+jPanelMessageBrowser,JPanel,false,false, , ,false,<default>
+jPanelMessageViewer,JPanel,false,false, , ,false,<default>
+jTabbedPaneMain,JTabbedPane,false,false, , ,false,<default>
+statusBar,JLabel,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+
+<HEAD>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html;CHARSET=iso-8859-1">
+	<META NAME="GENERATOR" Content="Visual Page 2.0 for Windows - Trial Version">
+	<TITLE>JEdPoint Documentation</TITLE>
+</HEAD>
+
+<BODY TEXT="white" BGCOLOR="black" LINK="lime" ALINK="red" VLINK="green">
+
+<H1 ALIGN="CENTER">JEdPoint</H1>
+<H4 ALIGN="CENTER">(J(ava) Ed(ward) Point)</H4>
+<H3 ALIGN="CENTER">A modular Fidonet point program written in Java</H3>
+<P>
+<H4>Table of Contents</H4>
+
+<UL>
+	<LI>Introduction
+	<LI>Before we begin
+	<LI>Installation
+	<LI>Usage
+	<LI>Developers
+</UL>
+
+<H4></H4>
+
+<H4>Introduction</H4>
+<P>JEdPoint is a completely modular, open-sourced (GPL) point program for Fidonet (<A HREF="http://fidonet.org">http://fidonet.org</A>).
+JEdPoint was written in Java so that many platforms could benefit from its existence. Modules are completely interchangable,
+meaning that you can change them at will and the program will still function as normal.</P>
+
+<P></P>
+<H4>Before we Begin</H4>
+<P>This documentation assumes you are relatively acquainted with your system. It assumes you know what a point
+number is. It assumes you know how to run java.exe (or javaw.exe). It assumes you have enough common sense to figure
+things out for yourself.</P>
+
+<P></P>
+<H4>Installation</H4>
+
+<OL>
+	<LI>Install Java
+
+	<P><B>Windows users</B>: Be sure to download the <B>international</B> version of the Java Runtime Environment (JRE).
+
+	<P>
+	<LI>Unzip JEdPoint to a directory
+
+	<P>Any directory will do.
+
+	<P>
+	<LI>Edit JEdPoint.cfg
+
+	<P>Change the username.<BR>
+	Change the point number.
+	<LI>run <B>java -jar JEdPoint.jar</B>
+
+	<P><B>Windows users</B>: You can try to use the following shortcut to start JEdPoint
+
+	<P>%comspec% /c start /MAX &quot;&quot; &quot;PathToJavaw.Exe&quot; -jar JEdPoint.jar
+</OL>
+
+<P></P>
+
+<P>That's it. You have the option of configuring the modules (look in the settings/ directory) but that should
+be unnecessary for most people.</P>
+
+<P></P>
+<H4>Developers</H4>
+<P>Writing new modules for JEdPoint should be easy. Check the Documentation/Developers directory for more information
+on how to write modules for JEdPoint.
+
+</BODY>
+
+</HTML>

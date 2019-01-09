@@ -1,0 +1,4369 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+
+<HEAD>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html;CHARSET=iso-8859-1">
+<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+<META NAME="CREATED" CONTENT="20011114;23292863">
+<META NAME="CHANGED" CONTENT="20011115;92138">
+
+	<META NAME="GENERATOR" Content="Visual Page 2.0 for Windows - Trial Version">
+	<TITLE>untitled</TITLE>
+
+	<STYLE TYPE="text/css">
+	<!--
+	H1	 {
+			Font-Family : Arial
+		}
+	H2	 {
+			Font-Family : Arial
+		}
+	H3	 {
+			Font-Family : Arial
+		}
+	-->
+	</STYLE>
+
+</HEAD>
+
+<BODY>
+
+
+<BLOCKQUOTE>
+	<H1 ALIGN="CENTER">The Messages</H1>
+</BLOCKQUOTE>
+
+<H2 STYLE="font-weight : medium">Introduction</H2>
+<P>JedPoint is built on a microkernel architecture, using messages as the way of communication between modules.
+The messages are stored in a class called JedPointMessage. The messages themselves contain a <B>request</B><SPAN
+STYLE="font-weight : medium"> and a </SPAN><B>response</B><SPAN STYLE="font-weight : medium"> part. The module
+sending the message fills in the request, and the module receiving the message fills in the response.</SPAN></P>
+<H2 STYLE="font-weight : medium">Requests and Responses</H2>
+<P STYLE="font-weight : medium">Reading and writing request and response data is done using the following methods:
+<B>setRequest</B>, <B>setResponse</B>, <B>getRequest</B> and <B>getResponse</B>.</P>
+<P STYLE="font-weight : medium">In case you need to clear a request or response, us <B>clearRequest</B> and <B>clearResponse</B>.</P>
+<H2 STYLE="font-weight : medium">Summary of Message types</H2>
+<P STYLE="font-weight : medium">Messages are sent to one of the several types of module types. Below is a list
+of module types which are linked to a list of messages for the module type.</P>
+<H4 ALIGN="CENTER" STYLE="font-weight : medium                                                       ; Text-Align : Center"></H4>
+<H4 ALIGN="CENTER" STYLE="font-weight : medium                                                       ; Text-Align : Center"><BR>
+Module Types</H4>
+<CENTER>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" WIDTH="500">
+	<TR>
+		<TD WIDTH="173"><B>Module Type</B></TD>
+		<TD WIDTH="250"><B>Description</B>&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="173"><A HREF="#module">module</A></TD>
+		<TD WIDTH="250">Messages common to all modules</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="173"><A HREF="#moduleMicrokernel">moduleMicrokernel</A></TD>
+		<TD WIDTH="250">The microkernel itself</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="173"><A HREF="#moduleLog">moduleLog</A></TD>
+		<TD WIDTH="250">Logging module that logs information / errors to disk.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="173"><A HREF="#moduleMessageBase">moduleMessageBase</A></TD>
+		<TD WIDTH="250">Loads / Stores messages in various areas.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="173"><A HREF="#moduleMessageEditor">moduleMessageEditor</A></TD>
+		<TD WIDTH="250">Edits messages</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="173"><A HREF="#moduleImport">moduleImport</A></TD>
+		<TD WIDTH="250">Imports new packets to the message areas.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="173"><A HREF="#moduleExport">moduleExport</A></TD>
+		<TD WIDTH="250">Exports packets from the message areas.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="173"><A HREF="#moduleTearline">moduleTearline</A></TD>
+		<TD WIDTH="250">Returns a random/specific tearline.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="173"><A HREF="#moduleOrigin">moduleOrigin</A></TD>
+		<TD WIDTH="250">Returns a random/specific origin.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="173"><A HREF="#pollSendMail">modulePoll</A></TD>
+		<TD WIDTH="250">Polls the boss (sends / gets new mail)</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="173"><A HREF="#moduleUI">moduleUI</A></TD>
+		<TD WIDTH="250">Main User Interface</TD>
+	</TR>
+</TABLE>
+</P>
+</CENTER>
+<P>
+<H2 STYLE="font-weight : medium">Message Details</H2>
+<H3 STYLE="font-weight : medium">x</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="65">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3 ALIGN="CENTER"><A NAME="module"></A><B>module</B></H3>
+<P ALIGN="CENTER">Messages common to all modules.</P>
+<CENTER>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" WIDTH="500">
+<COL WIDTH=177>
+		<COL WIDTH=314>
+																																																										<TR VALIGN="TOP">
+		<TD WIDTH="177"><B>Message</B></TD>
+		<TD WIDTH="314"><B>Description</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#moduleGetInformation">moduleGetInformation</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Returns information about the module</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#moduleInit">moduleInit</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Starts the module init routine where the module prepares itself for use (reading config files, etc).&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#moduleDeInit">moduleDeInit</A></TD>
+		<TD WIDTH="314">Called when the module is to be shut down</TD>
+	</TR>
+</TABLE>
+
+</CENTER>
+<H3><A NAME="moduleGetInformation"></A>moduleGetInformation</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Retrieves information about the module</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1.0</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="65">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">author</TD>
+		<TD WIDTH="286">Author of this module</TD>
+		<TD WIDTH="65">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">modulename</TD>
+		<TD WIDTH="286">Module's full name</TD>
+		<TD WIDTH="65">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">modulenameversion</TD>
+		<TD WIDTH="286">Module's full name including version</TD>
+		<TD WIDTH="65">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">shortdescription</TD>
+		<TD WIDTH="286">A short (&lt;80char) description of the module</TD>
+		<TD WIDTH="65">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">longdescription</TD>
+		<TD WIDTH="286">A long description of the module. With optional \n line breaks</TD>
+		<TD WIDTH="65">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">type</TD>
+		<TD WIDTH="286">The type of module.<BR>
+			See JEdPointModule for a list of module types</TD>
+		<TD WIDTH="65">Integer</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">versionhigh</TD>
+		<TD WIDTH="286">High version of the module</TD>
+		<TD WIDTH="65">Integer</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">versionlow</TD>
+		<TD WIDTH="286">
+			<P STYLE="font-weight : medium">Low version of the module
+		</TD>
+		<TD WIDTH="65">
+			<P STYLE="font-weight : medium">Integer
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">apiversion</TD>
+		<TD WIDTH="286">Level of API support</TD>
+		<TD WIDTH="65">Integer</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="moduleInit"></A>moduleInit</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium">Starts the module init routine where the module prepares itself for use (read config
+files, open SQL connections, etc).</P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1.0</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="65">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<P>
+<H3><A NAME="moduleDeInit"></A>moduleDeInit</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium">Prepares the module for shutdown.</P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1.0</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="65">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3 ALIGN="CENTER"><A NAME="moduleMicrokernel"></A> <B>moduleMicrokernel</B></H3>
+<P ALIGN="CENTER">The microkernel.</P>
+<CENTER>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" WIDTH="500">
+<COL WIDTH=177>
+		<COL WIDTH=314>
+																																																										<TR VALIGN="TOP">
+		<TD WIDTH="177"><B>Message</B></TD>
+		<TD WIDTH="314"><B>Description</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#mkGetSettings">mkGetSettings</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Gets the settings for the user&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#mkParseSetting">mkParseSetting</A></TD>
+		<TD WIDTH="314">Parses a setting string</TD>
+	</TR>
+</TABLE>
+
+</CENTER>
+<H3 ALIGN="CENTER"></H3>
+<H3><A NAME="mkGetSettings"></A>mkGetSettings</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Retreives the settings for the user. These settings include the
+user's name, his point number and his settings directory.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">username</TD>
+		<TD WIDTH="286">User's name</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">pointnumber</TD>
+		<TD WIDTH="286">Point Number</TD>
+		<TD WIDTH="81">PointNumber</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">areafixname</TD>
+		<TD WIDTH="286">User's Areafix name</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">areafixpointnumber</TD>
+		<TD WIDTH="286">User's Areafix point number</TD>
+		<TD WIDTH="81">PointNumber</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">areafixpassword</TD>
+		<TD WIDTH="286">User's Areafix password</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">codepage</TD>
+		<TD WIDTH="286">Preferred codepage</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">packetpassword</TD>
+		<TD WIDTH="286">Packet Password</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">settingsdir</TD>
+		<TD WIDTH="286">Settings directory</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">datadir</TD>
+		<TD WIDTH="286">Module data directory</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">jedpointdir</TD>
+		<TD WIDTH="286">Location where Jedpoint is being run from</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">netmaildir</TD>
+		<TD WIDTH="286">User's netmail directory</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">importdir</TD>
+		<TD WIDTH="286">Message import directory</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">exportdir</TD>
+		<TD WIDTH="286">Message export directory</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">defaultareatearline</TD>
+		<TD WIDTH="286">Default area tearline</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">defaultareaorigin</TD>
+		<TD WIDTH="286">Default area originline</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mkParseSetting"></A>mkParseSetting</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Parses a settings string. Will replace %settingsdir% with the settings
+directory and %datadir% with the data directory. Etc.</FONT></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">See JEdPoint.java for a list of all settings parsed.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">parse</TD>
+		<TD WIDTH="286">The string to parse</TD>
+		<TD WIDTH="81">String&nbsp;</TD>
+		<TD WIDTH="84">1&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">parsed</TD>
+		<TD WIDTH="286">The parsed string</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3 ALIGN="CENTER"><A NAME="moduleImport"></A><B>moduleImport</B></H3>
+<P ALIGN="CENTER">The message importer</P>
+<CENTER>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" WIDTH="500">
+<COL WIDTH=177>
+		<COL WIDTH=314>
+																																																										<TR VALIGN="TOP">
+		<TD WIDTH="177"><B>Message</B></TD>
+		<TD WIDTH="314"><B>Description</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#importStart">importStart</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Starts importing the new messages</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#importCancel">importCancel</A></TD>
+		<TD WIDTH="314">Cancels the current action.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#importGetStatus">importGetStatus</A></TD>
+		<TD WIDTH="314">Returns the current status of the importer</TD>
+	</TR>
+</TABLE>
+
+</CENTER>
+<H3 ALIGN="CENTER"></H3>
+<H3><A NAME="importStart"></A>importStart</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Begins importing the new messages from the inbound directory.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="importCancel"></A>importCancel</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Cancels the current action. If the importer isn't doing anything
+just ignore the message.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="importGetStatus"></A>importGetStatus</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Returns the current status of the importer</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">actions</TD>
+		<TD WIDTH="286">Vector of strings describing whatever actions the importer has been doing since the last GetStatus.</TD>
+		<TD WIDTH="81">Vector</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">cancancel</TD>
+		<TD WIDTH="286">Can the current action be canceled?</TD>
+		<TD WIDTH="81">Boolean&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">isready</TD>
+		<TD WIDTH="286">Is the importer ready for action?</TD>
+		<TD WIDTH="81">Boolean</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+
+<H3 ALIGN="CENTER"><A NAME="moduleExport"></A><B>moduleExport</B></H3>
+<P ALIGN="CENTER">The message exporter</P>
+<CENTER>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" WIDTH="500">
+<COL WIDTH=177>
+		<COL WIDTH=314>
+																																																										<TR VALIGN="TOP">
+		<TD WIDTH="177"><B>Message</B></TD>
+		<TD WIDTH="314"><B>Description</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#exportStart">exportStart</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Starts exporting the new messages</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#exportCancel">exportCancel</A></TD>
+		<TD WIDTH="314">Cancels the current action.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#exportGetStatus">exportGetStatus</A></TD>
+		<TD WIDTH="314">Returns the current status of the exporter.</TD>
+	</TR>
+</TABLE>
+
+</CENTER>
+<H3 ALIGN="CENTER"></H3>
+<H3><A NAME="exportStart"></A>exportStart</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Begins exporting the new messages to the outbound directory.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="exportCancel"></A>exportCancel</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Cancels the current action. If the importer isn't doing anything
+just ignore the message.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="exportGetStatus"></A>exportGetStatus</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Returns the current status of the exporter.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">actions</TD>
+		<TD WIDTH="286">Vector of strings describing whatever actions the exporter has been doing since the last GetStatus.</TD>
+		<TD WIDTH="81">Vector</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">cancancel</TD>
+		<TD WIDTH="286">Can the current action be canceled?</TD>
+		<TD WIDTH="81">Boolean&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">isready</TD>
+		<TD WIDTH="286">Is the exporter ready for action?</TD>
+		<TD WIDTH="81">Boolean</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+
+<H3 ALIGN="CENTER"><A NAME="moduleLog"></A> <B>moduleLog</B></H3>
+<P ALIGN="CENTER">Logging module that writes debug/info/error messages to disk.</P>
+<CENTER>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" WIDTH="500">
+<COL WIDTH=177>
+		<COL WIDTH=314>
+																																																										<TR VALIGN="TOP">
+		<TD WIDTH="177"><B>Message</B></TD>
+		<TD WIDTH="314"><B>Description</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#logSetLogfile">logSetLogfile</A></TD>
+		<TD WIDTH="314">Sets a path + filename for the various log files</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#logWrite">logWrite</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Writes a message to the log file&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#logDebug">logDebug</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Writes a message to the debug log file</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#logInfo">logInfo</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Writes a message to the info log file&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#logWarning">logWarning</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Writes a message to the warning log file&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#logError">logError&nbsp;</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Writes a message to the error log file</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#logFatal">logFatal</A></TD>
+		<TD WIDTH="314">Writes a message to the fatal log file</TD>
+	</TR>
+</TABLE>
+</P>
+</CENTER>
+<H3 STYLE="font-weight : medium"><A NAME="logSetLogfile"></A>logSetLogfile</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Sets the path+filename of the log files for the specified log levels.
+Setting a specific log level to a file will also tell the log module that it should log those type of messages.
+Per default, all log levels are left blank, meaning that the log module won't log those type of messages.</FONT></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">The log files could be different for each log level, or they could
+all point to the same file.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="65">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">debug<BR>
+			<BR>
+			and/or<BR>
+			<BR>
+			info<BR>
+			<BR>
+			and/or<BR>
+			<BR>
+			warning<BR>
+			<BR>
+			and/or<BR>
+			<BR>
+			error<BR>
+			<BR>
+			and/or<BR>
+			<BR>
+			fatal</TD>
+		<TD WIDTH="286">Sets the filename for specified log level. You can set as many log levels as you want at once.</TD>
+		<TD WIDTH="65">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="logDebug"></A>logDebug</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Writes a debug message to the log file. This level of information
+is usually unnecessary for the Average Joe but could be useful for developers that are coding modules that don't
+have an interface (pretty much all of the modules except the Layout module).</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="65">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="286">Debug information</TD>
+		<TD WIDTH="65">String&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+
+<H3><A NAME="logInfo"></A>logInfo</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Writes an info message log file. These messages are semi-interesting.
+They could be &quot;User is polling now&quot;-type messages or even &quot;Message Area Deleted&quot;-type thingies.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="65">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="286">Info message</TD>
+		<TD WIDTH="65">String&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+
+<H3><A NAME="logWarning"></A>logWarning</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Writes a warning message to the log file. This is where things start
+to get interesting. While not being life threatening, warnings are there to inform whoever might want to look at
+the log file about what should have happened by didn't. Warnings are not life threatening. For more serious things,
+see error and fatal.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="65">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="286">Warning message</TD>
+		<TD WIDTH="65">String&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="65">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="logError"></A>logError</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Writes an error message to the log file. An error is an exception
+that caused the module to abort whatever it was doing at the time. Most of the time it means that the module can
+</FONT><B><FONT SIZE="3">still function</FONT></B><FONT SIZE="3">, but the message it received caused it to throw
+an exception. If a module is unable to function at all (due to a missing config file or perhaps a server that didn't
+answer when it should) then a Fatal should be called.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">exception</TD>
+		<TD WIDTH="212">Fully-formed JEdPointException</TD>
+		<TD WIDTH="114">JEdPointException</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="logFatal"></A>logFatal</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Writes a fatal error message to the log file. A Fatal is pretty
+much the same as an error, except that JEdPoint is terminated after having received the exception from the module.
+A Fatal should be thrown only if the module is not able to function at all.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">exception</TD>
+		<TD WIDTH="212">Fully-formed JEdPointException</TD>
+		<TD WIDTH="114">JEdPointException</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+
+<H3 ALIGN="CENTER"><A NAME="moduleMessageBase"></A><B>moduleMessageBase</B></H3>
+<P ALIGN="CENTER">Handles list of available areas and the messages within the areas.</P>
+<CENTER>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" WIDTH="516">
+<COL WIDTH=177>
+		<COL WIDTH=314>
+																																																										<TR VALIGN="TOP">
+		<TD WIDTH="206"><B>Message</B></TD>
+		<TD WIDTH="314"><B>Description</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbAddArea">mbAddArea</A></TD>
+		<TD WIDTH="314">Adds a message area</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbCatchUparea">mbCatchUpArea</A></TD>
+		<TD WIDTH="314">Marks all the unread messages in the area as read</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbChangeArea">mbChangeArea</A></TD>
+		<TD WIDTH="314">Changes an area's data</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbClearImported">mbClearImported</A></TD>
+		<TD WIDTH="314">Clears the imported attributes of one or all areas.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbGetAreaInformation">mbGetAreaInformation</A></TD>
+		<TD WIDTH="314">Retrieves informational data about an area</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbPackArea">mbPackArea</A></TD>
+		<TD WIDTH="314">Packs an area (starts area maintenance)</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbRemoveArea">mbRemoveArea</A></TD>
+		<TD WIDTH="314">Remove a message area</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbListAreas">mbListAreas</A></TD>
+		<TD WIDTH="314">Returns a Vector of available message areas</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206">&nbsp;</TD>
+		<TD WIDTH="314">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbAddMessage">mbAddMessage</A></TD>
+		<TD WIDTH="314">Add a message to an area</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbChangeMessage">mbChangeMessage</A></TD>
+		<TD WIDTH="314">Changes a message (header + body)</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbExportMessage">mbExportMessage</A></TD>
+		<TD WIDTH="314">Exports a message from an area.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbDeleteMessage">mbDeleteMessage</A></TD>
+		<TD WIDTH="314">Marks/Unmarks a message for deletion</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbFindMessage">mbFindMessage</A></TD>
+		<TD WIDTH="314">Finds a message(s) according to specific criteria</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbGetMessage">mbGetMessage</A></TD>
+		<TD WIDTH="314">Returns a whole FidonetMessage</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbGetMessageHeader">mbGetMessageHeader</A></TD>
+		<TD WIDTH="314">Returns a FidonetMessage but without the text.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbGetMessageHeaders">mbGetMessageHeaders</A></TD>
+		<TD WIDTH="314">Returns a vector of message headers</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbImportMessage">mbImportMessage</A></TD>
+		<TD WIDTH="314">Imports a message to an area.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbInsertMessage">mbInsertMessage</A></TD>
+		<TD WIDTH="314">Inserts a message at a specific index</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbListMessages">mbListMessages...</A></TD>
+		<TD WIDTH="314">Returns a list of messages that match an attribute.<BR>
+			<BR>
+			(Consists of 9 commands)</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbReadMessage">mbReadMessage</A></TD>
+		<TD WIDTH="314">Marks a message read and then returns it for reading.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbReplaceMessage">mbReplaceMessage</A></TD>
+		<TD WIDTH="314">Replaces an existing message</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbReplaceMessageHeader">mbReplaceMessageHeader</A></TD>
+		<TD WIDTH="314">Replaces an existing message's header</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbSetMessageAttributes">mbSetMessageAttributes</A></TD>
+		<TD WIDTH="314">Sets a specific message attribute to true/false</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="206"><A HREF="#mbWriteMessage">mbWriteMessage</A></TD>
+		<TD WIDTH="314">Adds a message to an area and marks it for export</TD>
+	</TR>
+</TABLE>
+
+</CENTER>
+<H3 STYLE="font-weight : medium">An Area</H3>
+<P STYLE="font-weight : medium">An area consists of an areaname, a description and tagline and origin strings.
+The tagline+origin strings can be either strings (in case you want to use only one tagline / origin) or they can
+point to real files, in which case the tagline + origin generators will notice that and grab a tagline/origin out
+of the files at random.</P>
+<P>
+<H3><A NAME="mbAddArea"></A>mbAddArea</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Adds a new message area.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">messageareadata</TD>
+		<TD WIDTH="212">New messageareadata</TD>
+		<TD WIDTH="114">MessageAreaData</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+
+<H3><A NAME="mbCatchUparea"></A>mbCatchUparea</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Marks all the unread messages in the area as read.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+
+<H3><A NAME="mbChangeArea"></A>mbChangeArea</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Changes an area's data. If the area's ID is to be changed, there
+should be another ID key, &quot;newid&quot;, in addition to the normal one. The newdescription, newtagline and
+neworigin are all optional, so if you only want to change the origin, use only the &quot;id&quot; and &quot;neworigin&quot;
+keys.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID (&quot;R20_FIDONET&quot;).</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">messageareadata</TD>
+		<TD WIDTH="212">The new message area data</TD>
+		<TD WIDTH="114">MessageAreaData</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+<A NAME="mbClearImported"></A>mbClearImported</P>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Clears the &quot;newlyimported&quot; attributes of all the messages
+in an area, or all the areas.</FONT></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">If the &quot;id&quot; key is not set, it will clear all the areas
+of newlyimported attributes.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">(Optional) Area's ID (&quot;R20_FIDONET&quot;).</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mbGetAreaInformation"></A>mbGetAreaInformation</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Retrieves all sorts of information about an area. If the area does
+not exist, return an empty response.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area ID to query.</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">messageareadata</TD>
+		<TD WIDTH="212">The area's data</TD>
+		<TD WIDTH="114">MessageAreaData</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mbListAreas"></A>mbListAreas</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Retrieves a list of connected areas. The Vector contains the area
+IDs.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">areas</TD>
+		<TD WIDTH="212">List of connected areas&nbsp;</TD>
+		<TD WIDTH="114">Vector</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mbPackArea"></A>mbPackArea</H3>
+<P><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Performs area maintenance. This includes removal of messages marked
+for deletion and resorting.</FONT></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">If the &quot;repair&quot; boolean is set to true, then the messagebase
+module will try to fix a broken messagebase, else a simple read / write operation is done on all the messages.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">(Optional) Area's ID</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">repair</TD>
+		<TD WIDTH="212">(Optional) Should the area try to be repaired?</TD>
+		<TD WIDTH="114">Boolean</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+<A NAME="mbRemoveArea"></A>mbRemoveArea</P>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Removes an area.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">(Optional) Area's ID</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">ids</TD>
+		<TD WIDTH="212">(Optional) A vector of IDs (strings)</TD>
+		<TD WIDTH="114">Vector</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mbAddMessage"></A>mbAddMessage</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Adds a message to the end of an area.</FONT></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">If the specified area does not exist, create one automatically.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID&nbsp;</TD>
+		<TD WIDTH="114">String&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="212">The FidonetMessage to add</TD>
+		<TD WIDTH="114">FidonetMessage</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mbChangeMessage"></A>mbChangeMessage</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Changes a message. This changes the whole message (message text,
+taglines and all).</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID</TD>
+		<TD WIDTH="114">String&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">index</TD>
+		<TD WIDTH="212">Which message to replace</TD>
+		<TD WIDTH="114">Long</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="212">FidonetMessage to replace with</TD>
+		<TD WIDTH="114">FidonetMessage</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mbDeleteMessage"></A>mbDeleteMessage</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Marks a message (or several) for deletion. If the message(s) is
+already marked for deletion, remove the deletion mark (== unmark it for deletion).</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">index</TD>
+		<TD WIDTH="212">(Optional)Message index to delete</TD>
+		<TD WIDTH="114">Long</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">indexes</TD>
+		<TD WIDTH="212">(Optional)Message vector to delete</TD>
+		<TD WIDTH="114">Vector</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mbExportMessage"></A>mbExportMessage</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Exports a message from an area. It retrieves the message from the
+area. It performs whatever statistics-keeping functions necessary (marking the message as sent for the user, etc).</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">index</TD>
+		<TD WIDTH="212">Message index to export</TD>
+		<TD WIDTH="114">Long</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="212">The FidonetMessage to export&nbsp;</TD>
+		<TD WIDTH="114">FidonetMessage</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mbFindMessage"></A>mbFindMessage</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Finds</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">x</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Which area to search (Area ID)</TD>
+		<TD WIDTH="114">String&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">key</TD>
+		<TD WIDTH="212">Key to search</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">greater</TD>
+		<TD WIDTH="212">(Optional) Result must be greater than this object.</TD>
+		<TD WIDTH="114">Object</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">smaller</TD>
+		<TD WIDTH="212">(Optional) Result must be smaller than this object.</TD>
+		<TD WIDTH="114">Object</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">exact</TD>
+		<TD WIDTH="212">(Optional) Result must exactly equal to this object</TD>
+		<TD WIDTH="114">Object</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">contains</TD>
+		<TD WIDTH="212">(Optional) Result must contain this string.</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">result</TD>
+		<TD WIDTH="212">Vector containing ints (indexes of the messages found)&nbsp;</TD>
+		<TD WIDTH="114">Vector</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<P>
+<H3><A NAME="mbGetMessage"></A>mbGetMessage</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Retrieve's a FidonetMessage from an area at a specific index.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID</TD>
+		<TD WIDTH="114">String&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">index</TD>
+		<TD WIDTH="212">Which message to fetch</TD>
+		<TD WIDTH="114">Long</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="212">A retrieved FidonetMessage</TD>
+		<TD WIDTH="114">FidonetMessage</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mbGetMessageHeader"></A>mbGetMessageHeader</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Retrieves a FidonetMessage from an area at a specific index that
+contains only header informtion (no kludges, message text, tagline, origin, etc).</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">index</TD>
+		<TD WIDTH="212">Which message header to fetch</TD>
+		<TD WIDTH="114">Long</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="212">Retrieved FidonetMessage header</TD>
+		<TD WIDTH="114">FidonetMessage</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mbGetMessageHeaders"></A>mbGetMessageHeaders</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Retrieves a vetor of FidonetMessage headers within a specific range.
+It returns a vector which contains all the FidonetMessage headers for the specified range.</FONT></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">If rangestart is omitted, then it should start at the first message.</FONT></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">If rangestop is omitted, then it should stop at the last message.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">rangestart</TD>
+		<TD WIDTH="212">(Optional)Index to start from</TD>
+		<TD WIDTH="114">Long</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">rangestop</TD>
+		<TD WIDTH="212">(Optional)Index to stop at</TD>
+		<TD WIDTH="114">Long</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">messagevector</TD>
+		<TD WIDTH="212">Vector of FidonetMessage headers</TD>
+		<TD WIDTH="114">Vector</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+
+<H3><A NAME="mbImportMessage"></A>mbImportMessage</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Imports a message to an area. It appends the message to the end
+of the area. It performs whatever statistics-keeping functions necessary (marking the message as unread for the
+user, etc).</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="212">The FidonetMessage to import</TD>
+		<TD WIDTH="114">FidonetMessage</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mbInsertMessage"></A>mbInsertMessage</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Inserts a message at a specific index. All messages from index are
+moved +1 place. Other than that, this is basically like mbAddMessage.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">index</TD>
+		<TD WIDTH="212">Where to put the message</TD>
+		<TD WIDTH="114">Long</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="212">The FidonetMessage to insert</TD>
+		<TD WIDTH="114">FidonetMessage</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+
+<H3><A NAME="mbListMessages"></A>mbListMessages... (9 commands)</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Returns a list of messages that have specified attributes.</FONT></P>
+
+<BLOCKQUOTE>
+	<P STYLE="font-weight : medium"><FONT SIZE="3">mbListMessagesDelete</FONT>
+	<BLOCKQUOTE>
+		<P STYLE="font-weight : medium"><FONT SIZE="3">All messages that are marked to be deleted</FONT>
+	</BLOCKQUOTE>
+	<P STYLE="font-weight : medium"><FONT SIZE="3">mbListMessagesExport</FONT></P>
+	<BLOCKQUOTE>
+		<P STYLE="font-weight : medium"><FONT SIZE="3">All messages that are marked to be exported</FONT>
+	</BLOCKQUOTE>
+	<P STYLE="font-weight : medium"><FONT SIZE="3">mbListMessagesNew</FONT></P>
+	<BLOCKQUOTE>
+		<P STYLE="font-weight : medium"><FONT SIZE="3">Newly imported messages</FONT></P>
+	</BLOCKQUOTE>
+	<P><FONT SIZE="3">mbListMessagesNewUnread</FONT></P>
+	<BLOCKQUOTE>
+		<P><FONT SIZE="3">New, unread messages.</FONT>
+	</BLOCKQUOTE>
+	<P STYLE="font-weight : medium"><FONT SIZE="3">mbListMessagesPersonal</FONT></P>
+	<BLOCKQUOTE>
+		<P STYLE="font-weight : medium"><FONT SIZE="3">Personal messages</FONT></P>
+	</BLOCKQUOTE>
+	<P><FONT SIZE="3">mbListMessagesPersonalUnread</FONT></P>
+	<BLOCKQUOTE>
+		<P><FONT SIZE="3">Personal, unread messages.</FONT></P>
+	</BLOCKQUOTE>
+	<P><FONT SIZE="3">mbListMessagesPersonalNew</FONT></P>
+	<BLOCKQUOTE>
+		<P><FONT SIZE="3">New, personal messages</FONT></P>
+	</BLOCKQUOTE>
+	<P><FONT SIZE="3">mbListMessagesPersonalNewUnread</FONT></P>
+	<BLOCKQUOTE>
+		<P><FONT SIZE="3">New, personal, unread messages</FONT>
+	</BLOCKQUOTE>
+	<P STYLE="font-weight : medium"><FONT SIZE="3">mbListMessagesUnread</FONT></P>
+	<BLOCKQUOTE>
+		<P STYLE="font-weight : medium"><FONT SIZE="3">Unread messages</FONT></P>
+	</BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<P STYLE="font-weight : medium"><FONT SIZE="3"><BR>
+</FONT><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">vector</TD>
+		<TD WIDTH="212">Vector of message indexes (Long)&nbsp;</TD>
+		<TD WIDTH="114">Vector&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+
+<H3><A NAME="mbReadMessage"></A>mbReadMessage</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Sets a message as &quot;read&quot; and then returns it (in the JEdPointMessage).
+This command should be used to view messages in the UI.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID</TD>
+		<TD WIDTH="114">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">index</TD>
+		<TD WIDTH="212">Which message to read / return</TD>
+		<TD WIDTH="114">Long</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="212">The FidonetMessage at index&nbsp;</TD>
+		<TD WIDTH="114">FidonetMessage&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mbReplaceMessage"></A>mbReplaceMessage</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Replaces a message. This replaces the whole message (message text,
+taglines and all).</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">x</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID</TD>
+		<TD WIDTH="114">String&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">index</TD>
+		<TD WIDTH="212">Which message to replace</TD>
+		<TD WIDTH="114">Long</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="212">FidonetMessage to replace with</TD>
+		<TD WIDTH="114">FidonetMessage</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<P>
+<H3><A NAME="mbReplaceMessageHeader"></A>mbReplaceMessageHeader</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Replaces only the message header of an existing message.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">x</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID</TD>
+		<TD WIDTH="114">String&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">index</TD>
+		<TD WIDTH="212">Which message to replace</TD>
+		<TD WIDTH="114">Long</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="212">Message header to replace with</TD>
+		<TD WIDTH="114">FidonetMessage</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mbSetMessageAttributes"></A>mbSetMessageAttributes</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Sets an attribute (or indeed, several) of a specific message in
+an area to true/false.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID&nbsp;</TD>
+		<TD WIDTH="114">String&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">index</TD>
+		<TD WIDTH="212">The index of the message</TD>
+		<TD WIDTH="114">Long</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">attributepersonal</TD>
+		<TD WIDTH="212">(Optional) The personal attribute</TD>
+		<TD WIDTH="114">Boolean</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">attributenewlyimported</TD>
+		<TD WIDTH="212">(Optional) The &quot;newly imported&quot; attribute</TD>
+		<TD WIDTH="114">Boolean</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">attributeread</TD>
+		<TD WIDTH="212">(Optional) The read attribute</TD>
+		<TD WIDTH="114">Boolean</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">attributeexport</TD>
+		<TD WIDTH="212">(Optional) The export attribute</TD>
+		<TD WIDTH="114">Boolean</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">attributedelete</TD>
+		<TD WIDTH="212">(Optional) The delete attribute</TD>
+		<TD WIDTH="114">Boolean</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="mbWriteMessage"></A>mbWriteMessage</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Adds a message to the end of an area and marks it for export.</FONT></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">If the specified area does not exist, create one automatically.</FONT></P>
+<P><U><FONT SIZE="3">Since version</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="212">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="114">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER"><B>API version</B>
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">id</TD>
+		<TD WIDTH="212">Area's ID&nbsp;</TD>
+		<TD WIDTH="114">String&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="212">The FidonetMessage to add</TD>
+		<TD WIDTH="114">FidonetMessage</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="212">&nbsp;</TD>
+		<TD WIDTH="114">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3 ALIGN="CENTER"><A NAME="moduleTearline"></A><B>moduleTearline</B></H3>
+<P ALIGN="CENTER">The tearline module</P>
+<CENTER>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" WIDTH="500">
+<COL WIDTH=177>
+		<COL WIDTH=314>
+																																																										<TR VALIGN="TOP">
+		<TD WIDTH="177"><B>Message</B></TD>
+		<TD WIDTH="314"><B>Description</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#tlGetTearline">tlGetTearline</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Returns a tearline.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#TlAssemble">tlAssemble</A></TD>
+		<TD WIDTH="314">Assembles a complete tearline</TD>
+	</TR>
+</TABLE>
+
+</CENTER>
+<H3 ALIGN="CENTER"></H3>
+<H3><A NAME="tlGetTearline"></A>tlGetTearline</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Retreives a tearline from the specified file. If the file is non
+existent, it will return the value of the &quot;file&quot; key.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">file</TD>
+		<TD WIDTH="286">The file to read the tearlines from.</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">tearline</TD>
+		<TD WIDTH="286">Retrieved tearline</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="TlAssemble"></A>tlAssemble</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Assembles a tearline.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">tearline</TD>
+		<TD WIDTH="286">The whole tearline</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">tearline</TD>
+		<TD WIDTH="286">The assembled tearline</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+
+<H3 ALIGN="CENTER"><A NAME="moduleOrigin"></A><B>moduleOrigin</B></H3>
+<P ALIGN="CENTER">The tearline module</P>
+<CENTER>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" WIDTH="500">
+<COL WIDTH=177>
+		<COL WIDTH=314>
+																																																										<TR VALIGN="TOP">
+		<TD WIDTH="177"><B>Message</B></TD>
+		<TD WIDTH="314"><B>Description</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#originGetOrigin">originGetOrigin</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Returns an origin.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#originAssemble">originAssemble</A></TD>
+		<TD WIDTH="314">Puts together an origin from an origin text + point number.</TD>
+	</TR>
+</TABLE>
+
+</CENTER>
+<H3 ALIGN="CENTER"></H3>
+<H3><A NAME="originGetOrigin"></A>originGetOrigin</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Retreives an origin from the specified file. If the file is non
+existent, it will return the value of the &quot;file&quot; key.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">file</TD>
+		<TD WIDTH="286">The file to read the tearlines from.</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">origin</TD>
+		<TD WIDTH="286">Retrieved origin</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="originAssemble"></A>originAssemble</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Assembles an origin from the origin text + point number received.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">origin</TD>
+		<TD WIDTH="286">The origin line</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">point</TD>
+		<TD WIDTH="286">Point number</TD>
+		<TD WIDTH="81">PointNumber</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">origin</TD>
+		<TD WIDTH="286">Assembled origin</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3 ALIGN="CENTER"><A NAME="modulePoll"></A><B>modulePoll</B></H3>
+<P ALIGN="CENTER">The poll module. Sends / Receives new mail from the boss.</P>
+<CENTER>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" WIDTH="500">
+<COL WIDTH=177>
+		<COL WIDTH=314>
+																																																										<TR VALIGN="TOP">
+		<TD WIDTH="177"><B>Message</B></TD>
+		<TD WIDTH="314"><B>Description</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#pollSendMail">pollSendMail</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Sends the mail waiting to be sent.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#pollGetMail">pollGetMail</A></TD>
+		<TD WIDTH="314">Gets new mail from the boss.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#pollFullPoll">pollFullPoll</A></TD>
+		<TD WIDTH="314">Does the complete send-and-get routine.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#pollGetStatus">pollGetStatus</A></TD>
+		<TD WIDTH="314">Returns the current status of the poll module.</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#pollCancel">pollCancel</A></TD>
+		<TD WIDTH="314">Cancels the current action.</TD>
+	</TR>
+</TABLE>
+
+</CENTER>
+<H3 ALIGN="CENTER"></H3>
+<H3><A NAME="pollSendMail"></A>pollSendMail</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Sends the mail waiting to be sent.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="pollGetMail"></A>pollGetMail</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Retrieves mail from the boss.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="pollFullPoll"></A>pollFullPoll</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Sends and receives mail from the boss.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="pollGetStatus"></A>pollGetStatus</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Gets the current status of the poll module.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">actions</TD>
+		<TD WIDTH="286">Vector of strings describing whatever actions the poller has been doing since the last GetStatus.</TD>
+		<TD WIDTH="81">Vector</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">cancancel</TD>
+		<TD WIDTH="286">Can the current action be canceled?</TD>
+		<TD WIDTH="81">Boolean&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">isready</TD>
+		<TD WIDTH="286">Is the importer ready for action?</TD>
+		<TD WIDTH="81">Boolean</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+
+<H3><A NAME="pollCancel"></A>pollCancel</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Cancels the current action. If the poller isn't doing anything just
+ignore the message.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3 ALIGN="CENTER"><A NAME="moduleUI"></A><B>moduleUI</B></H3>
+<P ALIGN="CENTER">The user interface module, from whence everything is done.</P>
+<CENTER>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" WIDTH="500">
+<COL WIDTH=177>
+		<COL WIDTH=314>
+																																																										<TR VALIGN="TOP">
+		<TD WIDTH="177"><B>Message</B></TD>
+		<TD WIDTH="314"><B>Description</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#uiStartUI">uiStartUI</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Starts the user interface</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#uiDisplayJOptionPane">uiDisplayJOptionPane</A></TD>
+		<TD WIDTH="314">Displays a JOptionPane</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#uiGetStatus">uiGetStatus</A></TD>
+		<TD WIDTH="314">Gets the module's status</TD>
+	</TR>
+</TABLE>
+
+</CENTER>
+<H3 ALIGN="CENTER"></H3>
+<H3><A NAME="uiStartUI"></A>uiStartUI</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Starts the User Interface</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="uiDisplayJOptionPane"></A>uiDisplayJOptionPane</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Displays a JOptionPane. Needless to say, this command only works
+when in the Java GUI.</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">joptionpane</TD>
+		<TD WIDTH="286">JOptionPane to display</TD>
+		<TD WIDTH="81">JOptionPane</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">title</TD>
+		<TD WIDTH="286">Title of the JOptionPane</TD>
+		<TD WIDTH="81">String</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="uiGetStatus"></A>uiGetStatus</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Retrieves status information about the module</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">active</TD>
+		<TD WIDTH="286">Is the UI active, or has it been shut down?&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;Boolean</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3 ALIGN="CENTER"><A NAME="moduleMessageEditor"></A>m<B>oduleMessageEditor</B></H3>
+<P ALIGN="CENTER">The user interface module, from whence everything is done.</P>
+<CENTER>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" WIDTH="500">
+<COL WIDTH=177>
+		<COL WIDTH=314>
+																																																										<TR VALIGN="TOP">
+		<TD WIDTH="177"><B>Message</B></TD>
+		<TD WIDTH="314"><B>Description</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#meEditMessage">meEditMessage</A></TD>
+		<TD WIDTH="314" VALIGN="TOP">Edits a message</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="177"><A HREF="#meGetStatus">meGetStatus</A></TD>
+		<TD WIDTH="314">Retrieve status about the message editor</TD>
+	</TR>
+</TABLE>
+
+</CENTER>
+<H3 ALIGN="CENTER"></H3>
+<H3><A NAME="meEditMessage"></A>meEditMessage</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Edits a message</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="631">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="112">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="112">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="286">The message to be edited&nbsp;</TD>
+		<TD WIDTH="112">FidonetMessage</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">jframe</TD>
+		<TD WIDTH="286">(Optional)The parent JFrame. Used for alt-tab swapping purposes.</TD>
+		<TD WIDTH="112">JFrame</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="112">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">message</TD>
+		<TD WIDTH="286">The edited message</TD>
+		<TD WIDTH="112">FidonetMessage&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">cancel</TD>
+		<TD WIDTH="286">Was message editing canceled?</TD>
+		<TD WIDTH="112">Boolean</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+</P>
+<H3><A NAME="meGetStatus"></A>meGetStatus</H3>
+<P STYLE="font-weight : medium"><U><FONT SIZE="3">Description</FONT></U></P>
+<P STYLE="font-weight : medium"><FONT SIZE="3">Retrieves status information about the module</FONT></P>
+<P><U><FONT SIZE="3">Since</FONT></U><I><FONT SIZE="3"> </FONT></I><FONT SIZE="3">1</FONT></P>
+<H3><FONT SIZE="3"></FONT></H3>
+<P>
+<TABLE BORDER="1" CELLPADDING="2" CELLSPACING="3" WIDTH="600">
+<COL WIDTH=144>
+	<COL WIDTH=286>
+	<COL WIDTH=121>
+																																																									<TR
+	VALIGN="TOP">
+		<TD WIDTH="144">&nbsp;</TD>
+		<TD WIDTH="286">
+			<P ALIGN="CENTER"><B>description</B>
+		</TD>
+		<TD WIDTH="81">
+			<P ALIGN="CENTER"><B>type</B>
+		</TD>
+		<TD WIDTH="84"><B>API version</B></TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>request</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">n/a</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">&nbsp;</TD>
+	</TR>
+	<TR VALIGN="TOP">
+		<TD WIDTH="144">
+			<P ALIGN="CENTER"><B>response</B>
+		</TD>
+		<TD WIDTH="286">&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;
+		</TD>
+	</TR>
+	<TR>
+		<TD WIDTH="144">active</TD>
+		<TD WIDTH="286">Is the MessageEditor active, or has it been shut down?&nbsp;</TD>
+		<TD WIDTH="81">&nbsp;Boolean</TD>
+		<TD WIDTH="84">
+			<P ALIGN="CENTER">&nbsp;1
+		</TD>
+	</TR>
+</TABLE>
+
+<HR ALIGN="CENTER" WIDTH="459">
+
+
+</BODY>
+
+</HTML>

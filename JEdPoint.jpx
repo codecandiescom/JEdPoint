@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--JBuilder XML Project-->
+<project>
+  <property category="idl" name="ProcessIDL" value="false"/>
+  <property category="runtime.0" name="RunnableType" value="com.borland.jbuilder.runtime.ApplicationRunner"/>
+  <property category="runtime.0" name="application.class" value="JEdPoint.JEdPointMicrokernel"/>
+  <property category="runtime.0" name="appserver.ejbJarsSaved" value="1"/>
+  <property category="runtime.0" name="appserver.parameters" value="-jts -jns -jss -jdb"/>
+  <property category="runtime.0" name="appserver.servername" value="ejbcontainer"/>
+  <property category="runtime.0" name="appserver.vmparameters" value=""/>
+  <property category="runtime.0" name="jsprunner.docbase" value="."/>
+  <property category="runtime.0" name="jsprunner.jspfile" value="../../../Program Files/JBuilder4/bin"/>
+  <property category="runtime.0" name="jsprunner.launchuri" value="/../../../Program Files/JBuilder4/bin"/>
+  <property category="runtime.0" name="test.harness" value="junit.textui.TestRunner"/>
+  <property category="sys" name="AuthorLabel" value="@author"/>
+  <property category="sys" name="BackupPath" value="bak"/>
+  <property category="sys" name="BeansInstantiate" value="false"/>
+  <property category="sys" name="BraceStyle" value="1"/>
+  <property category="sys" name="CheckStable" value="1"/>
+  <property category="sys" name="Company" value="None"/>
+  <property category="sys" name="CompanyLabel" value="Company:"/>
+  <property category="sys" name="Copyright" value="Copyright (c) 2001"/>
+  <property category="sys" name="CopyrightLabel" value="Copyright:"/>
+  <property category="sys" name="DefaultPath" value="src"/>
+  <property category="sys" name="Description" value="Java Fidonet Point Software"/>
+  <property category="sys" name="DescriptionLabel" value="Description:"/>
+  <property category="sys" name="DocPath" value="doc;Documentation/Developers/JavaDoc"/>
+  <property category="sys" name="EventMatch" value="false"/>
+  <property category="sys" name="EventStyle" value="1"/>
+  <property category="sys" name="ExcludeClassEnabled" value="0"/>
+  <property category="sys" name="IncludeTestPath" value="1"/>
+  <property category="sys" name="InstanceVisibility" value="0"/>
+  <property category="sys" name="JDK" value="java 1.3.1-b24"/>
+  <property category="sys" name="LastTag" value="0"/>
+  <property category="sys" name="Libraries" value="JBCL;Sitraka JClass Gauge 4.5.1"/>
+  <property category="sys" name="MakeStable" value="0"/>
+  <property category="sys" name="OutPath" value="classes"/>
+  <property category="sys" name="SourcePath" value="src;test"/>
+  <property category="sys" name="TestPath" value="test"/>
+  <property category="sys" name="Title" value="JEdPoint"/>
+  <property category="sys" name="TitleLabel" value="Title:"/>
+  <property category="sys" name="Version" value="1.0"/>
+  <property category="sys" name="VersionLabel" value="@version"/>
+  <property category="sys" name="WorkingDirectory" value="."/>
+  <property category="sys" name="palette.bean.chooser.beans" value="demos.Lines.Caps;"/>
+  <property category="sys"
+    name="uidesign.size.JEdPoint.DialogDisplayException" value="495,455"/>
+  <property category="sys"
+    name="uidesign.size.JEdPoint.DialogImportExport" value="611,480"/>
+  <property category="sys"
+    name="uidesign.size.JEdPoint.DialogMessageEditor" value="658,407"/>
+  <property category="sys" name="uidesign.size.JEdPoint.DialogPoll" value="451,300"/>
+  <property category="sys" name="uidesign.size.JEdPoint.FrameAreaEdit" value="400,209"/>
+  <property category="sys"
+    name="uidesign.size.JEdPoint.MessageEditorFrame" value="657,427"/>
+  <property category="sys"
+    name="uidesign.size.JEdPoint.PanelReplyInOtherArea" value="625,536"/>
+  <property category="sys" name="uidesign.size.JEdPoint.UIFrame" value="582,300"/>
+  <property category="sys"
+    name="uidesign.size.JEdPoint.defaultMessageEditor" value="567,473"/>
+  <node name="modules" type="Folder">
+    <node name="module_export_Default" type="Folder">
+      <file path="src/JEdPoint/modules/module_export_Default/module_export_Default.java"/>
+    </node>
+    <node name="module_import_Default" type="Folder">
+      <file path="src/JEdPoint/modules/module_import_Default/module_import_Default.java"/>
+    </node>
+    <node name="module_log" type="Folder">
+      <file path="src/JEdPoint/modules/module_log/module_log.java"/>
+    </node>
+    <node name="module_log_Default" type="Folder">
+      <file path="src/JEdPoint/modules/module_log_Default/module_log_Default.java"/>
+    </node>
+    <node name="module_messagebase_Default" type="Folder">
+      <file path="src/JEdPoint/modules/module_messagebase_Default/module_messagebase_Default.java"/>
+    </node>
+    <node name="module_messageeditor_Default" type="Folder">
+      <file path="src/JEdPoint/modules/module_messageeditor_Default/DialogMessageEditor.java"/>
+      <file path="src/JEdPoint/modules/module_messageeditor_Default/module_messageeditor_default_settings.java"/>
+      <file path="src/JEdPoint/modules/module_messageeditor_Default/module_messageeditor_Default.java"/>
+    </node>
+    <node name="module_origin_Default" type="Folder">
+      <file path="src/JEdPoint/modules/module_origin_Default/module_origin_Default.java"/>
+    </node>
+    <node name="module_poll_Default" type="Folder">
+      <file path="src/JEdPoint/modules/module_poll_Default/module_poll_Default.java"/>
+    </node>
+    <node name="module_tearline_Default" type="Folder">
+      <file path="src/JEdPoint/modules/module_tearline_Default/module_tearline_Default.java"/>
+    </node>
+    <node name="module_ui_Default" type="Folder">
+      <file path="src/JEdPoint/modules/module_ui_Default/Areas.java"/>
+      <file path="src/JEdPoint/modules/module_ui_Default/CustomTableCellRenderer.java"/>
+      <file path="src/JEdPoint/modules/module_ui_Default/DefaultTableModel.java"/>
+      <file path="src/JEdPoint/modules/module_ui_Default/DialogImportExport.java"/>
+      <file path="src/JEdPoint/modules/module_ui_Default/DialogPoll.java"/>
+      <file path="src/JEdPoint/modules/module_ui_Default/module_ui_default_settings.java"/>
+      <file path="src/JEdPoint/modules/module_ui_Default/module_ui_Default.java"/>
+      <file path="src/JEdPoint/modules/module_ui_Default/PanelAreaEdit.java"/>
+      <file path="src/JEdPoint/modules/module_ui_Default/PanelAreasEdit.java"/>
+      <file path="src/JEdPoint/modules/module_ui_Default/PanelReplyInOtherArea.java"/>
+      <file path="src/JEdPoint/modules/module_ui_Default/UIFrame.java"/>
+    </node>
+  </node>
+  <file path="src/JEdPoint/FidonetMessage.java"/>
+  <file path="src/JEdPoint/FidonetMessageUtils.java"/>
+  <file path="src/JEdPoint/FidonetPacket.java"/>
+  <file path="src/JEdPoint/JEdPointException.java"/>
+  <file path="src/JEdPoint/JEdPointMessage.java"/>
+  <file path="src/JEdPoint/JEdPointMicrokernel.java"/>
+  <file path="src/JEdPoint/JEdPointModule.java"/>
+  <file path="src/JEdPoint/JEdPointUtilities.java"/>
+  <file path="src/JEdPoint/MessageAreaData.java"/>
+  <file path="src/JEdPoint/PointNumber.java"/>
+</project>

@@ -1,0 +1,44 @@
+2002-03-18
+----------
++ Added "Sort" under Area menu
++ Added "Disconnect" under the Area menu
++ Added areafixname to Jedpoint.conf
+= Fixed the moving of areas
+= Fixed the adding of new areas
+
+2002-03-16
+----------
++ Added areafixpointnumber and areafixpassword settings to Jedpoint.conf
+
+2002-03-13
+----------
++ Added go to last and go to first.
++ Added the ability to sort the areas (see menu)
+
+2002-03-11
+----------
++ Added a catch up function and message.
+- Removed the mbUnreadMessage message
+
+2002-03-04
+----------
++ The MessageEditor now checks for maximum name + subject lengths
++ Added import/export autostart and autoclose functions
++ Added grid, selection text and selection background color settings
+= Changed the JEditorPanes to JTextAreas, so now everything wraps
+= Import/Export and Poller dialogs now size themselves according to the main window size
+= Should start easier in Linux now (due to the changing of hardcoded backslashes to File.separator)
+
+2002-03-03
+----------
++ PID is now always "JEdPoint vX.X"
+= Completely rearranged the source code files / directories
+
+2002-03-03
+----------
++ Message viewer font and colors can be changed
++ Message list list font and colors can be changed
++ Area list font and colors can be changed
++ Message editor font and colors can be changed
+= Changed the saved settings of the UI into a hashmap, so that it stops losing them everything the class changes
+= Edit bug in messagebase fixed.

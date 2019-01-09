@@ -1,0 +1,13 @@
+UI
+--
+Make tab panels visible all the time
+
+"I ett meddelande -> gå till area#-tabben, markera flera, gå tillbaka till msg-tabben, välj reply."
+
+[08:06] <Deep_edge> Du borde iaf sätta så man inte kan markera mer än en åt gången... 
+[08:06] <Deep_edge> Om man inte <ctrl>ar då. Fast då börj ju reply-funktionerna disablas. 
+
+MessageEditor
+-------------
+Fix focus (start on the editorpane)
+
